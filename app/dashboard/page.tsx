@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MaskedEmail } from "@/components/ui/MaskedEmail";
-import { MaskedPhone } from "@/components/ui/MaskedPhone";
+import { MaskedPhone } from '@/components/ui/MaskedPhone';
+import { MaskedEmail } from '@/components/ui/MaskedEmail';
 
 interface Transaction {
   id: string;
