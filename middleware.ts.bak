@@ -1,0 +1,42 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { jwtDecode } from 'jwt-decode';
+
+const publicRoutes = ['/login', '/api/auth'];
+const protectedRoutes = ['/dashboard'];
+
+export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  // Allow public routes
+  if (publicRoutes.some((route) => pathname.startsWith(route))) {
+    return NextResponse.next();
+  }
+
+  // Check for protected routes
+  if (protectedRoutes.some((route) => pathname.startsWith(route))) {
+    const token = request.cookies.get('__session')?.value;
+
+    if (!token) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+
+    try {
+      const decoded = jwtDecode<{ admin?: boolean }>(token);
+
+      // Check for admin claim
+      if (!decoded.admin) {
+        return NextResponse.redirect(new URL('/login', request.url));
+      }
+
+      return NextResponse.next();
+    } catch (error) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+};
