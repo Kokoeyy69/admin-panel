@@ -3,7 +3,7 @@
  * Provides type-safe callable functions for transaction operations
  */
 
-import { httpsCallable, getFunctions, HttpsError } from 'firebase/functions';
+import { httpsCallable, getFunctions } from 'firebase/functions';
 import { TransactionActionRequest, TransactionActionResponse } from '@/types/transaction';
 
 const functions = getFunctions();

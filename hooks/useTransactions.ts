@@ -4,7 +4,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { collection, onSnapshot, query, orderBy, limit, where, DocumentReference } from 'firebase/firestore';
+import { collection, onSnapshot, query, orderBy, limit, where, doc } from 'firebase/firestore';
 import { db } from '@/lib/firebase-client';
 import { Transaction, TransactionStatus } from '@/types/transaction';
 
@@ -94,7 +94,7 @@ export function useTransaction(txId: string) {
     let unsubscribe: (() => void) | undefined;
 
     try {
-      const docRef = new DocumentReference(db, 'transactions', txId);
+      const docRef = doc(db, 'transactions', txId);
       
       unsubscribe = onSnapshot(
         docRef,

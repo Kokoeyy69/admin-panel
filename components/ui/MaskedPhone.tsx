@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 
 interface MaskedPhoneProps {
-  phone: string;
+  phoneNumber: string;
   className?: string;
 }
 
-export function MaskedPhone({ phone, className = '' }: MaskedPhoneProps) {
+export function MaskedPhone({ phoneNumber, className = '' }: MaskedPhoneProps) {
   const [revealed, setRevealed] = useState(false);
 
   // Format: +62-812-3456-7890 -> +62-812-****-****
@@ -41,7 +41,7 @@ export function MaskedPhone({ phone, className = '' }: MaskedPhoneProps) {
 
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <span className="font-mono text-sm">{maskPhone(phone)}</span>
+      <span className="font-mono text-sm">{maskPhone(phoneNumber)}</span>
       <button
         type="button"
         onClick={() => setRevealed(!revealed)}
